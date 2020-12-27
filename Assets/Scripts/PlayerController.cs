@@ -7,9 +7,11 @@ public class PlayerController : MonoBehaviour
 {
     private Animator animator;
     private Rigidbody2D rb2d;
+
     public float speed;
     public float jump;
     private bool is_grounded;
+    public ScoreController scoreController;
 
     private void Awake() {
         animator = gameObject.GetComponent<Animator>();
@@ -39,6 +41,10 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.tag == "Respawn"){
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
+    }
+
+    public void PickUpKey(){
+        scoreController.IncreaseScore(10);
     }
 
     void PlayerMovement(float horizontal, float vertical){
