@@ -7,10 +7,11 @@ public class PlayerController : MonoBehaviour
 {
     private Animator animator;
     private Rigidbody2D rb2d;
+    private bool is_grounded;
+    private bool is_jumping = false;
 
     public float speed;
     public float jump;
-    private bool is_grounded;
     public ScoreController scoreController;
 
     private void Awake() {
@@ -47,6 +48,10 @@ public class PlayerController : MonoBehaviour
         scoreController.IncreaseScore(10);
     }
 
+    public void KillPlayer(){
+        Debug.Log("Player Death!");
+    }
+
     void PlayerMovement(float horizontal, float vertical){
         // Horizontal movement of the player
         Vector3 position = transform.position;
@@ -61,7 +66,10 @@ public class PlayerController : MonoBehaviour
 
     void PlayerAnimation(float horizontal, float vertical){
         // Run and Idle Animation
-        animator.SetFloat("speed", Mathf.Abs(horizontal));
+        if (is_grounded && !is_jumping) {
+            Debug.Log(horizontal);
+            animator.SetFloat("speed", Mathf.Abs(horizontal));
+        }
 
         // Rotating the player
         Vector3 scale = transform.localScale;
@@ -76,8 +84,10 @@ public class PlayerController : MonoBehaviour
         // Jump Animation
         if (vertical > 0 && is_grounded) {
             animator.SetBool("jump", true);
-        } else if (vertical == 0) {
+            is_jumping = true;
+        } else if (is_grounded && is_jumping) {
             animator.SetBool("jump", false);
+            is_jumping = false;
         }
     }
 }
