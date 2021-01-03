@@ -9,10 +9,12 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D rb2d;
     private bool is_grounded;
     private bool is_jumping = false;
+    private int heartsLeft = 3;
 
     public float speed;
     public float jump;
     public ScoreController scoreController;
+    public HeartTextController heartTextController;
 
     private void Awake() {
         animator = gameObject.GetComponent<Animator>();
@@ -46,6 +48,15 @@ public class PlayerController : MonoBehaviour
 
     public void PickUpKey(){
         scoreController.IncreaseScore(10);
+    }
+
+    public void Hit(){
+        --heartsLeft;
+        heartTextController.RefreshUI(heartsLeft);
+
+        if(heartsLeft <= 0){
+            KillPlayer();
+        }
     }
 
     public void KillPlayer(){
