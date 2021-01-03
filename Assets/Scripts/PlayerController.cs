@@ -13,7 +13,6 @@ public class PlayerController : MonoBehaviour
     public float speed;
     public float jump;
     public ScoreController scoreController;
-    public GameOverController gameOverController;
 
     private void Awake() {
         animator = gameObject.GetComponent<Animator>();
@@ -51,8 +50,7 @@ public class PlayerController : MonoBehaviour
 
     public void KillPlayer(){
         Debug.Log("Player Death!");
-        gameOverController.PlayerDied();
-        this.enabled = false;
+        SceneManager.LoadScene(1);
     }
 
     void PlayerMovement(float horizontal, float vertical){
