@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour
     public float speed;
     public float jump;
     public ScoreController scoreController;
+    public GameOverController gameOverController;
 
     private void Awake() {
         animator = gameObject.GetComponent<Animator>();
@@ -40,12 +41,8 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision) {
         if (collision.gameObject.tag == "Respawn"){
-            LoadAnyLevel(SceneManager.GetActiveScene().buildIndex);
+            KillPlayer();
         }
-    }
-
-    public void LoadAnyLevel(int index){
-        SceneManager.LoadScene(index);
     }
 
     public void PickUpKey(){
@@ -54,7 +51,8 @@ public class PlayerController : MonoBehaviour
 
     public void KillPlayer(){
         Debug.Log("Player Death!");
-        LoadAnyLevel(SceneManager.GetActiveScene().buildIndex);
+        gameOverController.PlayerDied();
+        this.enabled = false;
     }
 
     void PlayerMovement(float horizontal, float vertical){
