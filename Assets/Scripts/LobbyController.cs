@@ -14,6 +14,6 @@ public class LobbyController : MonoBehaviour
 
     public void StartGame(){
         Debug.Log("Start Game");
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(2);
     }
 }
