@@ -40,8 +40,12 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision) {
         if (collision.gameObject.tag == "Respawn"){
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            LoadAnyLevel(SceneManager.GetActiveScene().buildIndex);
         }
+    }
+
+    public void LoadAnyLevel(int index){
+        SceneManager.LoadScene(index);
     }
 
     public void PickUpKey(){
@@ -50,6 +54,7 @@ public class PlayerController : MonoBehaviour
 
     public void KillPlayer(){
         Debug.Log("Player Death!");
+        LoadAnyLevel(SceneManager.GetActiveScene().buildIndex);
     }
 
     void PlayerMovement(float horizontal, float vertical){
@@ -67,7 +72,6 @@ public class PlayerController : MonoBehaviour
     void PlayerAnimation(float horizontal, float vertical){
         // Run and Idle Animation
         if (is_grounded && !is_jumping) {
-            Debug.Log(horizontal);
             animator.SetFloat("speed", Mathf.Abs(horizontal));
         }
 
