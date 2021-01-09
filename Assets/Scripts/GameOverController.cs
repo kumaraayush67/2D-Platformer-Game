@@ -6,16 +6,16 @@ using UnityEngine.SceneManagement;
 
 public class GameOverController : MonoBehaviour
 {
-    public Button restartButton;
+    public Button lobbyButton;
 
     private void Awake() {
-        restartButton.onClick.AddListener(RestartLevel);
+        lobbyButton.onClick.AddListener(RestartLevel);
     }
     public void PlayerDied(){
         gameObject.SetActive(true);
     }
 
     public void RestartLevel(){
-        SceneManager.LoadScene(2);
+        SceneManager.LoadScene((int)SceneEnum.Lobby);
     }
 }
