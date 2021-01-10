@@ -12,6 +12,6 @@ public class HeartTextController : MonoBehaviour
     }
 
     public void RefreshUI(int heartsLeft){
-        heartText.text = "Heart: " + heartsLeft;
+        heartText.text = "" + heartsLeft;
     }
 }

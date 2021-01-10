@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
+[RequireComponent(typeof(Button))]
 public class LevelSelector : MonoBehaviour
 {
     private Button levelButton;
@@ -15,6 +16,12 @@ public class LevelSelector : MonoBehaviour
     }
 
     private void LoadLevel(){
-        SceneManager.LoadScene(LevelIndex);
+        LevelStatus levelStatus = LevelManager.Instance.GetLevelStatus(LevelIndex);
+        if (levelStatus == LevelStatus.Locked){
+            Debug.Log("Level is Locked");
+        }
+        else {
+            SceneManager.LoadScene(LevelIndex);
+        }
     }
 }
